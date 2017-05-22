@@ -9,8 +9,8 @@ gem 'rails', '~> 5.0.3'
 gem 'spring', :group => :development
 
 
-gem 'sqlite3'
-
+# gem 'sqlite3'
+gem 'mysql2'
 gem 'listen'
 
 # To use ActiveModel has_secure_password
