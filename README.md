@@ -2,13 +2,11 @@
 
 
 ## Ruby version
-* Ruby
-* Ruby on Rails
+* Ruby 2.4.1 p111
+* Ruby on Rails 5.0.3
 
 ## System dependencies
-* mysql version
-
-## Configuration
+* mysql version 5.7.18
 
 ## Database creation
 データベース作成にはmysql のデータベース作成権限のあるアカウントを作成し、  
@@ -20,7 +18,7 @@
 
 ## Database creation
 `rake db:seed`  
-でwifiスポットのデータ(/db/jta¥_free¥_wifi.csv)をDBに格納します。  
+でwifiスポットのデータ(/db/jta_free_wifi.csv)をDBに格納します。  
 test実行時にはそれぞれ `RAIS_ENV=test`をオプションにつけてください。  
 
 ## Usage
