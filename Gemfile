@@ -27,3 +27,7 @@ gem 'listen'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end

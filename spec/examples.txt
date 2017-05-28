@@ -1,0 +1,5 @@
+example_id                           | status | run_time        |
+------------------------------------ | ------ | --------------- |
+./spec/requests/spots_spec.rb[1:1:1] | passed | 0.155 seconds   |
+./spec/requests/spots_spec.rb[1:1:2] | passed | 0.00575 seconds |
+./spec/spots_spec.rb[1:1:1]          | failed | 0.00314 seconds |

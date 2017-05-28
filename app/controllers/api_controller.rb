@@ -4,6 +4,12 @@ class ApiController < ApplicationController
   def show
     lat = params[:lat]
     lng = params[:lng]
+    if params[:lat].blank?
+        lat = 35.691638
+    end
+    if params[:lng].blank?
+        lng = 139.704616
+    end
     if params[:radius].blank?
         radius = 500
     else
@@ -15,7 +21,8 @@ class ApiController < ApplicationController
     else
         mx = params[:mxnum].to_i
     end
-    data = Spot.find_by_sql(["SELECT janame,jaaddress,(6371 * 1000 * ACOS(COS(RADIANS(latitude)) * COS(RADIANS(:a)) * COS(RADIANS(longitude) - RADIANS(:b)) + SIN(RADIANS(:a)) * SIN(RADIANS(latitude)))) AS distance FROM spots HAVING distance <= :c ORDER BY distance LIMIT :d",{a: lat,b: lng,c: radius,d: mx}])
+    data = Spot.WifiSearch(lat,lng,radius: radius,mxnum: mx)
+#    data = Spot.find_by_sql(["SELECT janame,jaaddress,(6371 * 1000 * ACOS(COS(RADIANS(latitude)) * COS(RADIANS(:a)) * COS(RADIANS(longitude) - RADIANS(:b)) + SIN(RADIANS(:a)) * SIN(RADIANS(latitude)))) AS distance FROM spots HAVING distance <= :c ORDER BY distance LIMIT :d",{a: lat,b: lng,c: radius,d: mx}])
     render :json => data
   end
 end
