@@ -6,7 +6,6 @@ RSpec.describe "Spots", type: :request do
       before(:all) do
         get '/api/show?lat=35.691638&lng=139.704616&radius=3000&mxnum=500'
         @json = JSON.parse(response.body)
-        p @json[0]
       end
 
       it "Returns 200 OK" do
@@ -21,9 +20,24 @@ RSpec.describe "Spots", type: :request do
           expect(documents).to have_key('distance')
         end
       end
+      it "works even when radius or mxnum is not given" do
+        get '/api/show?lat=35.691638&lng=139.704616&mxnum=500'
+        expect(response).to have_http_status(200)
+        get '/api/show?lat=35.691638&lng=139.704616&radius=3000'
+        expect(response).to have_http_status(200)
+      end
     end
     context "異常系" do
-
+      it "Returns 404 Error when lat or lng is empty or not Float" do
+        get '/api/show?lat=35.691638&radius=3000&mxnum=500'
+        expect(response).to have_http_status(404)
+        get '/api/show?lng=139.704616&radius=3000&mxnum=500'
+        expect(response).to have_http_status(404)
+        get '/api/show?lat=hoge&radius=3000&mxnum=500'
+        expect(response).to have_http_status(404)
+        get '/api/show?lng=fuga&radius=3000&mxnum=500'
+        expect(response).to have_http_status(404)
+      end
     end
   end
 end
