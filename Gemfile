@@ -3,15 +3,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.3'
 
-# No need of including rails-api on rails5
-# gem 'rails-api'
+gem 'spring', '2.0.1', :group => :development
 
-gem 'spring', :group => :development
-
-
-# gem 'sqlite3'
-gem 'mysql2'
-gem 'listen'
+gem 'mysql2', '0.4.6'
+gem 'listen', '3.1.5'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -28,6 +23,6 @@ gem 'listen'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'rspec-rails', '3.6.0'
+  gem 'factory_girl_rails', '4.8.0'
 end
