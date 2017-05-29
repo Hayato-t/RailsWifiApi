@@ -30,6 +30,6 @@ radiusおよびmxnumは省略可能です。
 jsonの各データはjaaddress,janame,distanceを要素に持ち、それぞれ、住所、名前、地点からの距離[m]を表します。  
 
 ## How to run the test suite
-テストはRSpecでつくられています。  
-`rake spec`  
+テストコードはRSpecでつくられています。  
+`rspec`  
 で実行してください。  
