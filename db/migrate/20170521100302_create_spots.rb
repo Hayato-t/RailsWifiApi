@@ -6,8 +6,8 @@ class CreateSpots < ActiveRecord::Migration[5.0]
       t.string :zipcode
       t.string :jaaddress
       t.string :enaddress
-      t.float :latitude
-      t.float :longitude
+      t.decimal :latitude, precision:11, scale:8
+      t.decimal :longitude, precision: 11,scale: 8
       t.timestamps
     end
   end
