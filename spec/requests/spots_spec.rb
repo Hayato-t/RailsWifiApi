@@ -12,7 +12,7 @@ RSpec.describe "Spots", type: :request do
         expect(response).to have_http_status(200)
       end
   
-      it "s response.body is a json document and each contains jaaddress, janame, distance" do
+      it "response.body is a json document and each contains jaaddress, janame, distance" do
         expect(@json).to be_a_kind_of(Array)
         for documents in @json do
           expect(documents).to have_key('jaaddress')
@@ -20,7 +20,7 @@ RSpec.describe "Spots", type: :request do
           expect(documents).to have_key('distance')
         end
       end
-      it "distance is calculated by Haversine formula: d = 6371000 * 2 * asin(sqrt(sin(Radian(lat2-lat1)/2)**2+cos(Radian(lat2))cos(Radian(lat1))sin(Radian(lng2-lng1)/2**2))), and margin of errors is sufficiently small" do
+      it "distance is calculated by Haversine formula: d = 6371000 * 2 * asin(sqrt(sin(Radian(lat2-lat1)/2)**2+cos(Radian(lat2))cos(Radian(lat1))sin(Radian(lng2-lng1)/2**2))), and the margin of errors to local calculation is sufficiently small" do
         for documents in @json do
           lat1 = 35.691638
           lng1 = 139.704616
