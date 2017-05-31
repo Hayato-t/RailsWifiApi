@@ -4,7 +4,7 @@ RSpec.describe "Spots", type: :request do
   describe "GET /api/show" do
     context "正常系" do
       before(:all) do
-        get '/api/show?lat=35.691638&lng=139.704616&radius=3000&mxnum=500'
+        get '/api/show?lat=35.691638&lng=139.704616&radius=5000&mxnum=500'
         @json = JSON.parse(response.body)
       end
 
@@ -12,7 +12,7 @@ RSpec.describe "Spots", type: :request do
         expect(response).to have_http_status(200)
       end
   
-      it "response.body is a json document and each contains jaaddress, janame, distance" do
+      it "Response.body is a json document and each contains jaaddress, janame, distance" do
         expect(@json).to be_a_kind_of(Array)
         for documents in @json do
           expect(documents).to have_key('jaaddress')
@@ -20,7 +20,19 @@ RSpec.describe "Spots", type: :request do
           expect(documents).to have_key('distance')
         end
       end
-      it "distance is calculated by Haversine formula: d = 6371000 * 2 * asin(sqrt(sin(Radian(lat2-lat1)/2)**2+cos(Radian(lat2))cos(Radian(lat1))sin(Radian(lng2-lng1)/2**2))), and the margin of errors to local calculation is sufficiently small" do
+      it "Each records is sorted by distance and distance is smaller than given radius" do
+        d = 0
+        for documents in @json do
+          expect(documents['distance'].to_f).to be >= d
+          d = documents['distance'].to_f
+          expect(d).to be <= 5000
+        end
+      end
+      it "Number of records is smaller than given mxnum" do
+        expect(@json.length).to be <= 500
+      end
+
+      it "Distance is calculated by Haversine formula: d = 6371000 * 2 * asin(sqrt(sin(Radian(lat2-lat1)/2)**2+cos(Radian(lat2))cos(Radian(lat1))sin(Radian(lng2-lng1)/2**2))), and the margin of errors to local calculation is sufficiently small" do
         for documents in @json do
           lat1 = 35.691638
           lng1 = 139.704616
@@ -32,7 +44,7 @@ RSpec.describe "Spots", type: :request do
         end
       end
           
-      it "works even when radius or mxnum is not given" do
+      it "Works even when radius or mxnum is not given" do
         get '/api/show?lat=35.691638&lng=139.704616&mxnum=500'
         expect(response).to have_http_status(200)
         get '/api/show?lat=35.691638&lng=139.704616&radius=3000'
